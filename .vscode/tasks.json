@@ -644,6 +644,41 @@
 			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
 			"isBackground": false,
 			"group": "build"
+		},
+		{
+			"label": "prod-start-3099",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3099",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-reveal-v2",
+			"type": "shell",
+			"command": "node scripts/probe-reveal.mjs http://localhost:3099 9233",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-rsvp-submit",
+			"type": "shell",
+			"command": "node scripts/probe-reveal.mjs http://localhost:3099 9234",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "cleanup-reveal-probe",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-reveal.mjs\" && dir scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "final-lint-reveal",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
 		}
 	]
 }

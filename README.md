@@ -42,25 +42,13 @@ src/data/data.json   ->  src/data/index.ts  ->  imported as { siteData } from "@
 | `timeline` | The wedding schedule entries |
 | `rsvp` | RSVP fields. The `guests` field uses `type: "range"` with `min`/`max` to render the 1–5 slider |
 | `map` | Embedded map: `embedUrl` (iframe src), `directionsUrl`, title, address |
-| `googleForm` | `url` of the Google Form the RSVP button opens |
 | `venue` | Venue section copy and image |
 | `nav` | `brand`, `brandName`, `items[]` (label / href / icon), `cta`, `ctaHref` |
 | `footer` | Footer eyebrow and name |
 
-### Wiring up a real Google Form
+### The RSVP form
 
-1. Create a Google Form with the fields you want (Name, Guests, Email, Message).
-2. Copy the form ID — it is the long string in the URL between `/d/e/` and `/viewform`.
-3. Update `googleForm.id` and `googleForm.url` in `src/data/data.json`:
-
-```json
-"googleForm": {
-  "id": "1AbCdEfGhIjKlMnOpQrStUvWxYz",
-  "url": "https://docs.google.com/forms/d/e/1AbCdEfGhIjKlMnOpQrStUvWxYz/viewform?embedded=true"
-}
-```
-
-The **Send RSVP** button opens this form in a new tab.
+The RSVP form is fully local — there is no external redirect. `src/components/rsvpForm.tsx` keeps the field values in state and shows a confirmation card when the guest submits. To persist the responses, add an `onSubmit` handler that posts to your own API route, a database, or an email service.
 
 ## Structure
 
@@ -73,7 +61,9 @@ src/
   components/
     siteNav.tsx           desktop top bar + mobile floating bottom bar
     galleryMarquee.tsx   seamless edge-to-edge scrolling gallery
-    letterSection.tsx    handwritten letter section
+    letterSection.tsx    handwritten letter section (reveals sentence by sentence)
+    reveal.tsx           scroll-triggered reveal wrapper
+    rsvpForm.tsx         local RSVP form with confirmation state
     guestsSlider.tsx     1-5 numeric slider
     venueMap.tsx         Google Maps embed
     scrollToTop.tsx      appears after scrolling down
@@ -91,6 +81,8 @@ src/
 - **Fonts**: `Montserrat` for body text, `Praise` (script) for display headings, `Caveat` (handwriting) for the letter.
 - **Background**: a generated damask pattern (`public/patterns/damask-dark.svg`) sits behind the content on a fixed layer, faded out at the top so it blends into the hero.
 - **Scrollbar** is hidden while the page stays fully scrollable.
+- **Scroll reveal**: sections fade and slide in as they enter the viewport, driven by `IntersectionObserver` in `src/components/reveal.tsx`. `prefers-reduced-motion` is respected.
+- **The letter** reveals itself sentence by sentence when it scrolls into view, using the Caveat handwriting face.
 - **Section order**: Hero → Our Day + Countdown → Highlights → Gallery → Feature cards → Our letter to you → Wedding timeline + Map → RSVP → Venue → Footer.
 
 ## Notes
