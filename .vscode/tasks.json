@@ -679,6 +679,13 @@
 			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
 			"isBackground": false,
 			"group": "validate"
+		},
+		{
+			"label": "final-tsc-reveal",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
 		}
 	]
 }
