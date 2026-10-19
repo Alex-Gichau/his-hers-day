@@ -1,17 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   CalendarDays,
   Check,
   Clock3,
   MapPin,
-  Moon,
   Sparkles,
-  Sun,
   Users,
 } from "lucide-react";
 
@@ -35,14 +31,6 @@ import { iconMap } from "@/types/data";
 import { siteData } from "@/data";
 
 export default function Home() {
-  const { setTheme, theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && theme === "dark";
   const {
     couple,
     wedding,
@@ -59,55 +47,41 @@ export default function Home() {
   } = siteData;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">
-        <header className="sticky top-0 z-40 mb-6 rounded-full border border-border/80 bg-background/80 px-3 py-2 shadow-sm backdrop-blur-md sm:px-5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-[10px] font-semibold tracking-[0.2em] text-primary">
-                {couple.initials}
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground">{couple.eyebrow}</p>
-                <h1 className="text-lg font-semibold tracking-[0.18em] text-foreground sm:text-xl">
-                  {couple.displayName}
-                </h1>
-              </div>
-            </div>
+    <div className="min-h-screen bg-transparent text-foreground">
+      <section className="relative w-full">
+        <div className="relative w-full overflow-hidden">
+          <Image
+            src={hero.image.src}
+            alt={hero.image.alt}
+            width={2400}
+            height={1350}
+            className="h-[68vh] max-h-[760px] min-h-[440px] w-full object-cover lg:h-[82vh]"
+            priority
+            sizes="100vw"
+          />
 
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                aria-label="Toggle theme"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-full"
-              >
-                {mounted && isDark ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )}
-              </Button>
-              <Button className="hidden rounded-full sm:inline-flex">RSVP</Button>
-            </div>
-          </div>
-        </header>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/45 to-background/5" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/70 to-transparent" />
+        </div>
 
-        <main className="space-y-8 pb-16">
-          <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div className="space-y-6">
-              <Badge className="rounded-full border-rose-200 bg-rose-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.24em] text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300">
-                <Sparkles className="h-3.5 w-3.5" />
+        <div className="absolute inset-x-0 bottom-0">
+          <div className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 sm:pb-14 lg:px-8">
+            <div className="max-w-2xl space-y-5">
+              <Badge className="max-w-full whitespace-normal rounded-full border-rose-800 bg-rose-950/40 px-3 py-1 text-left text-[11px] font-medium uppercase tracking-[0.24em] text-rose-300 [&>svg]:size-3.5">
+                <Sparkles className="h-3.5 w-3.5 shrink-0" />
                 {hero.badge}
               </Badge>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <p className="text-sm uppercase tracking-[0.45em] text-muted-foreground">{hero.greeting}</p>
-                <h2 className="max-w-xl text-4xl font-medium tracking-[-0.06em] text-foreground sm:text-5xl lg:text-6xl">
+                <h2 className="font-wedding text-5xl leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">
                   {hero.title}
-                  <span className="mt-2 block text-primary">{hero.titleAccent}</span>
+                  <span className="mt-1 block text-primary">{hero.titleAccent}</span>
                 </h2>
+                <p className="font-wedding-alt text-3xl text-muted-foreground sm:text-4xl">
+                  {couple.nameOne} <span className="text-primary">&amp;</span> {couple.nameTwo}
+                </p>
               </div>
 
               <p className="max-w-lg text-base leading-7 text-muted-foreground sm:text-lg">
@@ -121,57 +95,45 @@ export default function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                {highlights.map(({ icon, label, value }) => {
-                  const Icon = iconMap[icon];
-                  return (
-                    <div key={label} className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
-                      <Icon className="mb-2 h-5 w-5 text-primary" />
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
-                      <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
-                    </div>
-                  );
-                })}
-              </div>
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+        <main className="space-y-8">
+          <section className="grid gap-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+            <div className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Our day</p>
+              <p className="font-wedding-alt mt-1 flex items-center gap-2 text-2xl text-foreground">
+                <CalendarDays className="h-5 w-5 text-primary" />
+                {wedding.dateLabel}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">{wedding.venue}</p>
+              <p className="text-sm text-muted-foreground">{wedding.address}</p>
             </div>
 
-            <div className="relative">
-              <div className="overflow-hidden rounded-[2rem] border border-border bg-card p-3 shadow-[0_30px_80px_rgba(120,77,63,0.18)]">
-                <div className="relative overflow-hidden rounded-[1.5rem]">
-                  <Image
-                    src={hero.image.src}
-                    alt={hero.image.alt}
-                    width={900}
-                    height={1100}
-                    className="h-[420px] w-full rounded-[1.5rem] object-cover sm:h-[500px]"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
+            <Countdown date={wedding.date} content={countdown} />
+          </section>
+
+          <section className="grid gap-3 sm:grid-cols-3">
+            {highlights.map(({ icon, label, value }) => {
+              const Icon = iconMap[icon];
+              return (
+                <div key={label} className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                  <Icon className="mb-2 h-5 w-5 text-primary" />
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+                  <p className="mt-2 font-wedding-alt text-xl text-foreground">{value}</p>
                 </div>
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:col-span-2">
-              <div className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm">
-                <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Our day</p>
-                <p className="mt-1 flex items-center gap-2 text-lg font-semibold text-foreground">
-                  <CalendarDays className="h-4 w-4 text-primary" />
-                  {wedding.dateLabel}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">{wedding.venue}</p>
-                <p className="text-sm text-muted-foreground">{wedding.address}</p>
-              </div>
-
-              <Countdown date={wedding.date} content={countdown} />
-            </div>
+              );
+            })}
           </section>
 
           <section id="gallery" className="space-y-4">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{gallery.eyebrow}</p>
-                <h3 className="mt-2 text-3xl font-medium tracking-[-0.05em] sm:text-4xl">{gallery.title}</h3>
+                <h3 className="font-wedding mt-2 text-4xl text-foreground sm:text-5xl">{gallery.title}</h3>
               </div>
               <Button variant="outline" className="hidden rounded-full sm:inline-flex">
                 {gallery.cta}
@@ -199,16 +161,16 @@ export default function Home() {
             {features.map((feature, index) => {
               const Icon = iconMap[feature.icon];
               const gradients = [
-                "bg-[linear-gradient(135deg,#fffaf7,#fdf2ee)] dark:bg-[linear-gradient(135deg,#2c1d1b,#2f2623)]",
-                "bg-[linear-gradient(135deg,#f9f5ef,#f0ece6)] dark:bg-[linear-gradient(135deg,#2a2622,#231f1d)]",
-                "bg-[linear-gradient(135deg,#f8f3ff,#f0ebff)] dark:bg-[linear-gradient(135deg,#241d2d,#221f2d)]",
+                "bg-[linear-gradient(135deg,#2c1d1b,#2f2623)]",
+                "bg-[linear-gradient(135deg,#2a2622,#231f1d)]",
+                "bg-[linear-gradient(135deg,#241d2d,#221f2d)]",
               ];
 
               return (
                 <Card key={feature.title} className={cn("border-0 shadow-sm", gradients[index % gradients.length])}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-xl">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <CardTitle className="font-wedding-alt flex items-center gap-2 text-3xl text-foreground">
+                      <Icon className="h-5 w-5 shrink-0 text-primary" />
                       {feature.title}
                     </CardTitle>
                   </CardHeader>
@@ -225,7 +187,7 @@ export default function Home() {
           <section id="story" className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div className="space-y-4">
               <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{story.eyebrow}</p>
-              <h3 className="text-3xl font-medium tracking-[-0.05em] sm:text-4xl">{story.title}</h3>
+              <h3 className="font-wedding text-4xl text-foreground sm:text-5xl">{story.title}</h3>
               <p className="text-base leading-7 text-muted-foreground">{story.description}</p>
               <ul className="space-y-3 text-sm text-foreground">
                 {story.points.map((item) => (
@@ -259,8 +221,8 @@ export default function Home() {
           <section id="details" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <Card className="border-0 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-2xl">
-                  <Clock3 className="h-5 w-5 text-primary" />
+                <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
+                  <Clock3 className="h-6 w-6 shrink-0 text-primary" />
                   {timeline.title}
                 </CardTitle>
                 <CardDescription>{timeline.description}</CardDescription>
@@ -275,7 +237,7 @@ export default function Home() {
 
                     <div className="flex-1 pb-4">
                       <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{entry.time}</p>
-                      <h4 className="mt-1 text-lg font-medium text-foreground">{entry.title}</h4>
+                      <h4 className="font-wedding-alt mt-1 text-2xl text-foreground">{entry.title}</h4>
                       <p className="mt-1 text-sm leading-6 text-muted-foreground">{entry.detail}</p>
                     </div>
                   </div>
@@ -285,8 +247,8 @@ export default function Home() {
 
             <Card className="border-0 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-2xl">
-                  <Users className="h-5 w-5 text-primary" />
+                <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
+                  <Users className="h-6 w-6 shrink-0 text-primary" />
                   {rsvp.title}
                 </CardTitle>
                 <CardDescription>{rsvp.description}</CardDescription>
@@ -334,30 +296,26 @@ export default function Home() {
           </section>
 
           <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
-            <Card className="border-0 bg-[linear-gradient(135deg,#f8ece9,#fff7f4)] shadow-sm dark:bg-[linear-gradient(135deg,#2c2423,#2a1e1d)]">
+            <Card className="min-w-0 overflow-hidden border-0 bg-[linear-gradient(135deg,#2c2423,#2a1e1d)] shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-2xl">
-                  <MapPin className="h-5 w-5 text-primary" />
+                <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
+                  <MapPin className="h-6 w-6 shrink-0 text-primary" />
                   {venue.title}
                 </CardTitle>
                 <CardDescription>{venue.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-5 text-sm leading-6 text-muted-foreground">
+              <CardContent className="space-y-5 px-4 text-sm leading-6 text-muted-foreground sm:px-6">
                 <div>
-                  <p className="font-medium text-foreground">{wedding.venue}</p>
+                  <p className="font-wedding-alt text-2xl text-foreground">{wedding.venue}</p>
                   <p>{wedding.address}</p>
                 </div>
                 <Separator />
                 <div>
-                  <p className="font-medium text-foreground">{wedding.dressCodeLabel}</p>
-                  <p>{wedding.dressCode}</p>
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">{wedding.giftsLabel}</p>
+                  <p className="font-wedding-alt text-2xl text-foreground">{wedding.giftsLabel}</p>
                   <p>{wedding.gifts}</p>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-background/60 p-3">
+                <div className="rounded-2xl border border-border bg-background/60 p-2 sm:p-3">
                   <p className="mb-2 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                     Wedding date
                   </p>
@@ -366,7 +324,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden border-0 shadow-sm">
+            <Card className="min-w-0 overflow-hidden border-0 shadow-sm">
               <div className="relative h-full min-h-72">
                 <Image
                   src={venue.image.src}
@@ -382,7 +340,7 @@ export default function Home() {
 
         <footer className="pb-8 text-center">
           <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{footer.eyebrow}</p>
-          <h3 className="mt-3 text-3xl font-medium tracking-[-0.05em] text-foreground">{footer.name}</h3>
+          <h3 className="font-wedding mt-3 text-5xl text-foreground">{footer.name}</h3>
         </footer>
       </div>
     </div>

@@ -72,6 +72,221 @@
 			"type": "shell",
 			"command": "node node_modules/next/dist/bin/next build --turbopack",
 			"isBackground": false
+		},
+		{
+			"label": "validate",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo VALIDATION_PASSED",
+			"isBackground": false
+		},
+		{
+			"label": "dev-3013",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next dev --turbopack -p 3013",
+			"isBackground": true
+		},
+		{
+			"label": "cleanup-and-dev",
+			"type": "shell",
+			"command": "cmd /c \"del /q public\\favicon.ico & if exist .next rmdir /s /q .next & echo CLEANED & dir /b public\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev-3020",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3020",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "del-patterns",
+			"type": "shell",
+			"command": "cmd /c \"del /q public\\patterns\\damask-light.svg public\\patterns\\damask-dark.svg & echo DELETED\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "clean-next",
+			"type": "shell",
+			"command": "cmd /c \"if exist .next rmdir /s /q .next & echo CLEANED\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "del-patterns2",
+			"type": "shell",
+			"command": "cmd /c \"del /q public\\patterns\\damask-light.svg public\\patterns\\damask-dark.svg & echo DELETED\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "gen-pattern",
+			"type": "shell",
+			"command": "node scripts/generate-pattern.mjs && dir /b public\\patterns",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "gen-and-dev-3021",
+			"type": "shell",
+			"command": "node scripts/generate-pattern.mjs && node node_modules/next/dist/bin/next dev --turbopack -p 3021",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate",
+			"type": "shell",
+			"command": "cmd /c \"del /q .shot-dark.png .shot-light.png 2>nul & node node_modules/eslint/bin/eslint.js src scripts && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "validate-all",
+			"type": "shell",
+			"command": "node --check scripts/generate-pattern.mjs && node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-build",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "validate-dark",
+			"type": "shell",
+			"command": "cmd /c \"del /q public\\patterns\\damask-light.svg & node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev-3030",
+			"type": "shell",
+			"command": "node scripts/generate-pattern.mjs && if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next dev --turbopack -p 3030",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "clean2",
+			"type": "shell",
+			"command": "cmd /c \"if exist .next rmdir /s /q .next\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev3030b",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3030",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "dev3040",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3040",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "clean3",
+			"type": "shell",
+			"command": "cmd /c \"if exist .next rmdir /s /q .next & echo CLEAN\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev3050",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3050",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "clean4",
+			"type": "shell",
+			"command": "cmd /c \"if exist .next rmdir /s /q .next & echo CLEAN\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev3060",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3060",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "clean5",
+			"type": "shell",
+			"command": "cmd /c \"if exist .next rmdir /s /q .next & echo CLEAN\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "dev3070",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3070",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-final",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "build-final",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3080",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3080",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "build-overflow-fix",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3081",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3081",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-badge-fix",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-badge-fix",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3082",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3082",
+			"isBackground": true,
+			"group": "build"
 		}
 	]
 }

@@ -104,8 +104,6 @@ export interface WeddingData {
   dateLabel: string;
   venue: string;
   address: string;
-  dressCodeLabel: string;
-  dressCode: string;
   giftsLabel: string;
   gifts: string;
 }

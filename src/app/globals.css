@@ -7,6 +7,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-gotham-sans);
+  --font-script: var(--font-wedding-script);
+  --font-script-alt: var(--font-wedding-script-alt);
   --font-mono: "SFMono-Regular", "SFMono-Regular", "Consolas", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -45,39 +47,41 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.98 0.015 40);
-  --foreground: oklch(0.2 0.02 27);
-  --card: oklch(0.995 0.008 36);
-  --card-foreground: oklch(0.2 0.02 27);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 27);
-  --primary: oklch(0.62 0.17 23);
-  --primary-foreground: oklch(0.99 0.01 35);
-  --secondary: oklch(0.95 0.02 35);
-  --secondary-foreground: oklch(0.26 0.03 26);
-  --muted: oklch(0.97 0.02 32);
-  --muted-foreground: oklch(0.5 0.03 28);
-  --accent: oklch(0.9 0.05 25);
-  --accent-foreground: oklch(0.26 0.03 26);
-  --destructive: oklch(0.62 0.2 25);
-  --border: oklch(0.9 0.02 30);
-  --input: oklch(0.96 0.02 30);
-  --ring: oklch(0.66 0.15 24);
-  --chart-1: oklch(0.7 0.14 24);
-  --chart-2: oklch(0.58 0.1 200);
-  --chart-3: oklch(0.75 0.12 96);
-  --chart-4: oklch(0.7 0.12 330);
-  --chart-5: oklch(0.72 0.13 67);
-  --sidebar: oklch(0.99 0.01 36);
-  --sidebar-foreground: oklch(0.2 0.02 27);
-  --sidebar-primary: oklch(0.62 0.17 23);
-  --sidebar-primary-foreground: oklch(0.99 0.01 35);
-  --sidebar-accent: oklch(0.95 0.02 35);
-  --sidebar-accent-foreground: oklch(0.26 0.03 26);
-  --sidebar-border: oklch(0.9 0.02 30);
-  --sidebar-ring: oklch(0.66 0.15 24);
+  --background: oklch(0.18 0.02 28);
+  --foreground: oklch(0.98 0.01 33);
+  --card: oklch(0.22 0.02 30);
+  --card-foreground: oklch(0.98 0.01 33);
+  --popover: oklch(0.22 0.02 30);
+  --popover-foreground: oklch(0.98 0.01 33);
+  --primary: oklch(0.74 0.12 20);
+  --primary-foreground: oklch(0.2 0.02 28);
+  --secondary: oklch(0.32 0.03 30);
+  --secondary-foreground: oklch(0.96 0.01 35);
+  --muted: oklch(0.28 0.02 30);
+  --muted-foreground: oklch(0.8 0.02 30);
+  --accent: oklch(0.32 0.04 18);
+  --accent-foreground: oklch(0.98 0.01 33);
+  --destructive: oklch(0.68 0.18 22);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.76 0.13 22);
+  --chart-1: oklch(0.78 0.14 24);
+  --chart-2: oklch(0.7 0.12 200);
+  --chart-3: oklch(0.82 0.12 96);
+  --chart-4: oklch(0.76 0.12 330);
+  --chart-5: oklch(0.78 0.12 67);
+  --sidebar: oklch(0.22 0.02 30);
+  --sidebar-foreground: oklch(0.98 0.01 33);
+  --sidebar-primary: oklch(0.78 0.14 24);
+  --sidebar-primary-foreground: oklch(0.2 0.02 28);
+  --sidebar-accent: oklch(0.32 0.03 30);
+  --sidebar-accent-foreground: oklch(0.96 0.01 35);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.76 0.13 22);
 }
 
+/* The site is dark-only, so the .dark scope mirrors the root palette.
+   This keeps Tailwind `dark:` variants working without a light theme. */
 .dark {
   --background: oklch(0.18 0.02 28);
   --foreground: oklch(0.98 0.01 33);
@@ -119,15 +123,39 @@
 
   html {
     scroll-behavior: smooth;
+    /* Base colour lives on the root so the body background is not
+       propagated to the canvas (that would hide the pattern layer). */
+    background-color: var(--background);
+  }
+
+  html,
+  body {
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-transparent text-foreground antialiased;
     font-family: "Gotham", "Montserrat", "Avenir Next", "Segoe UI", sans-serif;
     background-image:
-      radial-gradient(circle at top, rgba(217, 170, 153, 0.18), transparent 34%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+      radial-gradient(circle at 50% 0%, rgba(217, 170, 153, 0.16), transparent 38%);
+    background-repeat: no-repeat;
     background-attachment: fixed;
+  }
+
+  /* Damask pattern layer. Separate from the body background so the top
+     fade applies to the pattern only and never washes out page content. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("/patterns/damask-dark.svg");
+    background-repeat: repeat;
+    background-size: 1200px 1200px;
+    /* Fade the pattern out toward the top. */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
   }
 
   ::selection {
@@ -139,5 +167,17 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .font-wedding {
+    font-family: var(--font-wedding-script), "Great Vibes", cursive;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .font-wedding-alt {
+    font-family: var(--font-wedding-script-alt), "Parisienne", cursive;
+    font-weight: 400;
+    letter-spacing: 0;
   }
 }

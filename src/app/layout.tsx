@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Great_Vibes, Montserrat, Parisienne } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -7,6 +7,18 @@ const gotham = Montserrat({
   variable: "--font-gotham-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const script = Great_Vibes({
+  variable: "--font-wedding-script",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const scriptAlt = Parisienne({
+  variable: "--font-wedding-script-alt",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -25,14 +37,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${gotham.variable} min-h-screen bg-background antialiased`}
+        className={`${gotham.variable} ${script.variable} ${scriptAlt.variable} min-h-screen bg-background antialiased`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           {children}

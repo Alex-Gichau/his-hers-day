@@ -11,8 +11,6 @@
     "dateLabel": "05 Dec 2026",
     "venue": "The Willow Garden",
     "address": "24 Rose Avenue, Sandton, Johannesburg",
-    "dressCodeLabel": "Dress code",
-    "dressCode": "Formal elegance in soft romantic tones.",
     "giftsLabel": "Gifts",
     "gifts": "Your presence is the greatest gift of all."
   },
@@ -38,7 +36,7 @@
   "highlights": [
     { "icon": "MapPin", "label": "Venue", "value": "The Willow Garden" },
     { "icon": "CalendarDays", "label": "Date", "value": "05 Dec 2026" },
-    { "icon": "Music4", "label": "Dress Code", "value": "Formal Elegance" }
+    { "icon": "Music4", "label": "Celebration", "value": "Evening Reception" }
   ],
   "features": [
     {

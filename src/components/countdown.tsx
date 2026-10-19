@@ -65,7 +65,7 @@ export function Countdown({ date, content, className }: CountdownProps) {
         )}
       >
         <CalendarHeart className="mx-auto h-5 w-5 text-primary" />
-        <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
+        <p className="mt-2 font-wedding-alt text-2xl uppercase tracking-[0.1em] text-foreground">
           {content.pastTitle}
         </p>
         <p className="mt-1 text-xs text-muted-foreground">{content.pastMessage}</p>
@@ -93,7 +93,7 @@ export function Countdown({ date, content, className }: CountdownProps) {
           <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
             {content.title}
           </p>
-          <p className="text-sm font-medium text-foreground">{content.subtitle}</p>
+          <p className="font-wedding-alt text-2xl text-foreground">{content.subtitle}</p>
         </div>
       </div>
 

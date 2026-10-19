@@ -25,7 +25,9 @@ const WhatsAppDrawer = () => {
           <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-rose-400 text-lg font-semibold text-white shadow-sm">
             ❤
           </div>
-          <DrawerTitle className="text-2xl">We are happy to have you</DrawerTitle>
+          <DrawerTitle className="font-wedding text-4xl text-foreground">
+            We are happy to have you
+          </DrawerTitle>
           <DrawerDescription className="max-w-xs text-sm text-muted-foreground">
             Join our WhatsApp family and stay connected with all the details.
           </DrawerDescription>
@@ -38,11 +40,11 @@ const WhatsAppDrawer = () => {
             rel="noreferrer"
             className="w-full"
           >
-            <Button className="w-full">WhatsApp Family</Button>
+            <Button className="w-full rounded-full">WhatsApp Family</Button>
           </a>
 
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full rounded-full">
               Close
             </Button>
           </DrawerClose>
