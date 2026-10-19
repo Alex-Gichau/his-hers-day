@@ -27,7 +27,7 @@ export function GalleryMarquee({ images }: GalleryMarqueeProps) {
       {images.map((image, index) => (
         <figure
           key={`${image.alt}-${index}`}
-          className="relative mr-4 h-56 w-64 shrink-0 overflow-hidden rounded-2xl border border-border/60 shadow-sm sm:h-72 sm:w-80"
+          className="relative mr-4 h-56 w-64 shrink-0 overflow-hidden shadow-sm sm:h-72 sm:w-80"
         >
           <Image
             src={image.src}

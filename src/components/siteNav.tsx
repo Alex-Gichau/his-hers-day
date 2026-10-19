@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Mail } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { iconMap } from "@/types/data";
@@ -25,6 +26,36 @@ interface SiteNavProps {
  */
 export function SiteNav({ nav, className }: SiteNavProps) {
   const [active, setActive] = React.useState<string>("");
+
+  // Smooth, offset-aware scrolling for every in-page link. The native
+  // `scroll-behavior: smooth` rule handles most of it, but jumping to an
+  // anchor on a page where the browser is already animating can feel
+  // abrupt, so the scroll is driven explicitly here.
+  const handleNavClick = React.useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      const id = href.replace("#", "");
+      if (!id) return;
+
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      event.preventDefault();
+      setActive(id);
+
+      // Offset the destination by the fixed header so the section title
+      // is not hidden underneath it.
+      const header = document.querySelector("header");
+      const headerHeight =
+        header && window.getComputedStyle(header).display !== "none"
+          ? header.getBoundingClientRect().height
+          : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
+
+      window.scrollTo({ top, behavior: "smooth" });
+      window.history.replaceState(null, "", href);
+    },
+    [],
+  );
 
   // Highlight whichever section is currently in view. A scroll handler is
   // used rather than IntersectionObserver so that short sections (like the
@@ -84,6 +115,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
         <div className="container-page flex h-16 items-center justify-between gap-4">
           <a
             href="#top"
+            onClick={(event) => handleNavClick(event, "#top")}
             className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
             aria-label={nav.brandName}
           >
@@ -102,7 +134,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setActive(item.href.replace("#", ""))}
+                  onClick={(event) => handleNavClick(event, item.href)}
                   className={cn(
                     "rounded-full px-3.5 py-2 text-sm transition-colors",
                     isActive
@@ -117,7 +149,8 @@ export function SiteNav({ nav, className }: SiteNavProps) {
           </nav>
 
           <a
-            href="#rsvp"
+            href={nav.ctaHref}
+            onClick={(event) => handleNavClick(event, nav.ctaHref)}
             className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
             {nav.cta}
@@ -140,7 +173,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
                   href={item.href}
                   aria-label={item.label}
                   aria-current={isActive ? "page" : undefined}
-                  onClick={() => setActive(item.href.replace("#", ""))}
+                  onClick={(event) => handleNavClick(event, item.href)}
                   className={cn(
                     "flex h-12 w-full flex-col items-center justify-center gap-0.5 rounded-2xl transition-colors",
                     isActive
@@ -156,6 +189,28 @@ export function SiteNav({ nav, className }: SiteNavProps) {
               </li>
             );
           })}
+
+          {/* The desktop bar carries the RSVP as a separate CTA button, so the
+              bottom bar needs its own entry to keep RSVP reachable on mobile. */}
+          <li className="min-w-0 flex-1">
+            <a
+              href={nav.ctaHref}
+              aria-label={nav.cta}
+              aria-current={active === nav.ctaHref.replace("#", "") ? "page" : undefined}
+              onClick={(event) => handleNavClick(event, nav.ctaHref)}
+              className={cn(
+                "flex h-12 w-full flex-col items-center justify-center gap-0.5 rounded-2xl transition-colors",
+                active === nav.ctaHref.replace("#", "")
+                  ? "bg-primary/20 text-primary"
+                  : "text-muted-foreground active:bg-accent/70",
+              )}
+            >
+              <Mail className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span className="max-w-full truncate text-[9px] leading-none tracking-wide">
+                {nav.cta}
+              </span>
+            </a>
+          </li>
         </ul>
       </nav>
     </>

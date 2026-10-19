@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Praise } from "next/font/google";
+import { Caveat, Montserrat, Praise } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -16,9 +16,16 @@ const script = Praise({
   weight: "400",
 });
 
+// "Caveat" is a handwriting face used for the letter section.
+const handwriting = Caveat({
+  variable: "--font-handwriting-face",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "Gloria & Peter | Wedding Celebration",
-  description: "A modern wedding invitation experience for Gloria and Peter.",
+  title: "Hers & His | Wedding Celebration",
+  description: "A modern wedding invitation experience for Hers and His.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -34,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${gotham.variable} ${script.variable} min-h-screen bg-background antialiased`}
+        className={`${gotham.variable} ${script.variable} ${handwriting.variable} min-h-screen bg-background antialiased`}
       >
         <ThemeProvider
           attribute="class"

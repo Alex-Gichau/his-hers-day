@@ -413,6 +413,237 @@
 			"command": "node node_modules/next/dist/bin/next start -p 3087",
 			"isBackground": true,
 			"group": "build"
+		},
+		{
+			"label": "check-handwriting-fonts",
+			"type": "shell",
+			"command": "node -e \"const d=require('next/dist/compiled/@next/font/dist/google/font-data.json'); ['Caveat','Kalam','Dancing Script','Shadows Into Light'].forEach(f=>console.log(f, f in d ? JSON.stringify(d[f].weights) : 'MISSING'))\"",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-after-12-changes",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-tsc-pass2",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src; node node_modules/typescript/bin/tsc --noEmit",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "eslint-pass3",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "tsc-check-pass3",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-batch12-final",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3091",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3091",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "check-playwright-available",
+			"type": "shell",
+			"command": "node -e \"try{const p=require('playwright');console.log('playwright OK')}catch(e){try{const p=require('playwright-core');console.log('playwright-core OK')}catch(e2){console.log('NONE')}}\"",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "locate-chrome-or-edge",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"$c=@('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe','C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe','C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe','C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe'); $c | ForEach-Object { if (Test-Path $_) { Write-Output ('FOUND ' + $_) } }\"",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-measurements-v1",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3091 9223",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-batch12-rebuild",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3093",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3093",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "build-retry-3093",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3093b",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3093",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-measurements-v2",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3093 9224",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-desktop-v3",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3093 9226",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-mobile-v1",
+			"type": "shell",
+			"command": "node scripts/probe-mobile.mjs http://localhost:3093 9227",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-final-batch12",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3095",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3095",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-final-desktop",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3095 9228",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-final-desktop-v2",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3095 9229",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-final-desktop-v3",
+			"type": "shell",
+			"command": "node scripts/probe.mjs http://localhost:3095 9230",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-final-mobile",
+			"type": "shell",
+			"command": "node scripts/probe-mobile.mjs http://localhost:3095 9231",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "cleanup-probe-scripts",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe.mjs\" \"scripts\\probe-mobile.mjs\" && dir scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "final-lint-check",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "final-tsc-check",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-reveal-batch",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "tsc-reveal-batch",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-reveal-batch",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3097",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3097",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-reveal-v1",
+			"type": "shell",
+			"command": "node scripts/probe-reveal.mjs http://localhost:3097 9232",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-sentence-fix",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-reveal-v2",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }

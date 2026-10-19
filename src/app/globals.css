@@ -8,6 +8,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-gotham-sans);
   --font-script: var(--font-wedding-script);
+  --font-handwriting: var(--font-handwriting-face);
   --font-mono: "SFMono-Regular", "SFMono-Regular", "Consolas", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -120,11 +121,31 @@
     @apply border-border outline-ring/50;
   }
 
+  /* Hide the scrollbar but keep the page scrollable. */
   html {
     scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     /* Base colour lives on the root so the body background is not
        propagated to the canvas (that would hide the pattern layer). */
     background-color: var(--background);
+  }
+
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 
   html,
@@ -204,6 +225,13 @@
     letter-spacing: 0;
   }
 
+  /* True handwriting face used for the letter section. */
+  .font-hand {
+    font-family: var(--font-handwriting-face), "Caveat", cursive;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
   /* Fades the left and right edges of the gallery strip so the photos
      dissolve into the page instead of being cut off. */
   .edge-fade-x {
@@ -226,6 +254,74 @@
   /* Drives the left-to-right gallery strip. */
   .animate-gallery-marquee {
     animation: gallery-marquee var(--marquee-duration, 45s) linear infinite;
+  }
+
+  /* ------------------------------------------------------------------
+     Scroll reveal
+     Elements start hidden and animate into place when they scroll into
+     view. The `data-reveal` attribute is toggled by the Reveal component.
+     ------------------------------------------------------------------ */
+  .reveal {
+    opacity: 0;
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal[data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .reveal-from-up {
+    transform: translate3d(0, 28px, 0);
+  }
+
+  .reveal-from-down {
+    transform: translate3d(0, -28px, 0);
+  }
+
+  .reveal-from-left {
+    transform: translate3d(-32px, 0, 0);
+  }
+
+  .reveal-from-right {
+    transform: translate3d(32px, 0, 0);
+  }
+
+  .reveal-from-none {
+    transform: none;
+  }
+
+  /* Sentence-by-sentence reveal inside the letter. Each sentence fades and
+     lifts into place one after the other. */
+  .letter-sentence {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    filter: blur(4px);
+    transition:
+      opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .letter-sentence[data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .letter-sentence {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+    }
   }
 }
 

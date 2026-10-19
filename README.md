@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# His &amp; Hers — Wedding Invitation
+
+A dark, premium wedding invitation site built with **Next.js 15 (App Router)**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm start       # serve the production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+Almost every piece of text, image, and link on the site lives in a single file:
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/data/data.json   ->  src/data/index.ts  ->  imported as { siteData } from "@/data"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`src/data/data.json` is the source of truth. Edit it and the UI updates — no component changes needed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### `data.json` map
 
-## Deploy on Vercel
+| Key | Controls |
+| --- | --- |
+| `couple` | Names and initials shown in the hero, nav brand, and footer |
+| `wedding` | Date, venue, address, gifts note |
+| `hero` | Hero badge, headline, CTAs, and background image |
+| `countdown` | Countdown titles |
+| `highlights` | The three summary tiles (venue / date / celebration) |
+| `features` | The "Our story / Memories / Celebrations" cards, each with a `title`, `description`, and `image` |
+| `letter` | The **Our letter to you** section — `title`, `paragraphs[]` (emojis are welcome), and `signature` |
+| `gallery` | Title + the images used in the scrolling marquee |
+| `timeline` | The wedding schedule entries |
+| `rsvp` | RSVP fields. The `guests` field uses `type: "range"` with `min`/`max` to render the 1–5 slider |
+| `map` | Embedded map: `embedUrl` (iframe src), `directionsUrl`, title, address |
+| `googleForm` | `url` of the Google Form the RSVP button opens |
+| `venue` | Venue section copy and image |
+| `nav` | `brand`, `brandName`, `items[]` (label / href / icon), `cta`, `ctaHref` |
+| `footer` | Footer eyebrow and name |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Wiring up a real Google Form
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Create a Google Form with the fields you want (Name, Guests, Email, Message).
+2. Copy the form ID — it is the long string in the URL between `/d/e/` and `/viewform`.
+3. Update `googleForm.id` and `googleForm.url` in `src/data/data.json`:
+
+```json
+"googleForm": {
+  "id": "1AbCdEfGhIjKlMnOpQrStUvWxYz",
+  "url": "https://docs.google.com/forms/d/e/1AbCdEfGhIjKlMnOpQrStUvWxYz/viewform?embedded=true"
+}
+```
+
+The **Send RSVP** button opens this form in a new tab.
+
+## Structure
+
+```
+src/
+  app/
+    layout.tsx        fonts (Montserrat, Praise, Caveat), dark theme, metadata
+    page.tsx          the whole page composition
+    globals.css       tokens, damask pattern layer, custom utilities
+  components/
+    siteNav.tsx           desktop top bar + mobile floating bottom bar
+    galleryMarquee.tsx   seamless edge-to-edge scrolling gallery
+    letterSection.tsx    handwritten letter section
+    guestsSlider.tsx     1-5 numeric slider
+    venueMap.tsx         Google Maps embed
+    scrollToTop.tsx      appears after scrolling down
+    countdown.tsx / weddingCalendar.tsx / whatsappDrawer.tsx
+    ui/               shadcn-style primitives
+  data/
+    data.json         all editable content
+    index.ts          typed accessor
+  types/data.ts       types + icon map
+```
+
+## Design system
+
+- **Dark mode only** — the theme provider is locked to `dark`.
+- **Fonts**: `Montserrat` for body text, `Praise` (script) for display headings, `Caveat` (handwriting) for the letter.
+- **Background**: a generated damask pattern (`public/patterns/damask-dark.svg`) sits behind the content on a fixed layer, faded out at the top so it blends into the hero.
+- **Scrollbar** is hidden while the page stays fully scrollable.
+- **Section order**: Hero → Our Day + Countdown → Highlights → Gallery → Feature cards → Our letter to you → Wedding timeline + Map → RSVP → Venue → Footer.
+
+## Notes
+
+- The map iframe loads from `google.com` and does not need to be added to `next.config.ts` `remotePatterns`. The `next/image` remote patterns already allow `images.unsplash.com` and `photos.google.com`.
+- Navigation is smooth-scrolled and offset so section titles are never hidden beneath the fixed header.

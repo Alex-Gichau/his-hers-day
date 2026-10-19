@@ -1,9 +1,9 @@
 {
   "couple": {
-    "initials": "G&P",
-    "nameOne": "Gloria",
-    "nameTwo": "Peter",
-    "displayName": "Gloria & Peter",
+    "initials": "H&H",
+    "nameOne": "Hers",
+    "nameTwo": "His",
+    "displayName": "Hers & His",
     "eyebrow": "Save the date"
   },
   "wedding": {
@@ -42,19 +42,42 @@
     {
       "icon": "Heart",
       "title": "Our story",
-      "description": "From a chance meeting to a forever promise, every step has led us here."
+      "description": "From a chance meeting to a forever promise, every step has led us here.",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple embracing outdoors"
+      }
     },
     {
       "icon": "Camera",
       "title": "Memories",
-      "description": "A collection of moments that made our journey feel like home."
+      "description": "A collection of moments that made our journey feel like home.",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple smiling outdoors"
+      }
     },
     {
       "icon": "Gift",
       "title": "Celebrations",
-      "description": "An evening of music, stories, and heartfelt celebrations with those we love."
+      "description": "An evening of music, stories, and heartfelt celebrations with those we love.",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
+        "alt": "Celebration moment"
+      }
     }
   ],
+  "letter": {
+    "eyebrow": "A note to you",
+    "title": "Our letter to you",
+    "signature": "Hers & His",
+    "paragraphs": [
+      "To the people who carried us through every season of this life \u2014 thank you. \ud83c\udf1f You showed up on the ordinary Tuesdays, not just the beautiful days. You celebrated our small wins like they were your own, and you held space for our heartbreaks without ever making us feel like a burden. \ud83d\udc4b",
+      "This journey of ours would have been a very lonely road without you in it. Every milestone we reached, we reached because someone was cheering louder than the voice of our own doubt. You believed in us before we believed in ourselves, and that kind of love is the rarest thing in the world. \ud83d\udc96\u2764\ufe0f",
+      "So on our wedding day, we are not just celebrating our union \u2014 we are celebrating you. Everyone who travelled in the rain, who wiped away our tears, who made us laugh until our stomachs hurt, who taught us what it means to build a home out of a group of people who choose each other every day. \ud83c\udf89",
+      "Thank you for being our safe place, our cheerleaders, our forever friends. We love you more than words on any page could hold \u2014 but we are going to try anyway. \ud83d\uddeb\u00a0\ud83c\udf0f"
+    ]
+  },
   "story": {
     "eyebrow": "Our journey",
     "title": "A love story worth celebrating",
@@ -146,9 +169,11 @@
       {
         "id": "guests",
         "label": "Guests",
-        "type": "text",
-        "placeholder": "2 guests",
-        "half": true
+        "type": "range",
+        "placeholder": "How many are coming?",
+        "half": true,
+        "min": 1,
+        "max": 5
       },
       {
         "id": "email",
@@ -167,6 +192,12 @@
     ],
     "submit": "Send RSVP"
   },
+  "map": {
+    "title": "Find us",
+    "description": "The Willow Garden, 24 Rose Avenue, Sandton, Johannesburg.",
+    "embedUrl": "https://www.google.com/maps?q=The+Willow+Garden,+24+Rose+Avenue,+Sandton,+Johannesburg,+South+Africa&z=15&output=embed",
+    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=The+Willow+Garden,+24+Rose+Avenue,+Sandton,+Johannesburg,+South+Africa"
+  },
   "venue": {
     "title": "Venue details",
     "description": "We'll be gathering at the heart of the city.",
@@ -176,20 +207,20 @@
     }
   },
   "nav": {
-    "brand": "G&P",
-    "brandName": "Gloria & Peter",
+    "brand": "H&H",
+    "brandName": "Hers & His",
     "items": [
       { "label": "Our Day", "href": "#our-day", "icon": "CalendarHeart" },
       { "label": "Gallery", "href": "#gallery", "icon": "Images" },
-      { "label": "Story", "href": "#story", "icon": "Heart" },
+      { "label": "Letter", "href": "#letter", "icon": "Heart" },
       { "label": "Schedule", "href": "#details", "icon": "Clock3" },
-      { "label": "Venue", "href": "#venue", "icon": "MapPin" },
-      { "label": "RSVP", "href": "#rsvp", "icon": "Mail" }
+      { "label": "Venue", "href": "#venue", "icon": "MapPin" }
     ],
-    "cta": "RSVP"
+    "cta": "RSVP",
+    "ctaHref": "#rsvp"
   },
   "footer": {
     "eyebrow": "With love",
-    "name": "Gloria & Peter"
+    "name": "Hers & His"
   }
 }
