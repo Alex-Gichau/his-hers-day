@@ -1,31 +1,52 @@
-import { Button } from "./ui/button"
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer"
+import { Button } from "./ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./ui/drawer";
 
-const whatsappDrawer = () => {
+const WhatsAppDrawer = () => {
   return (
-    <div>
-        <Drawer>
-            <DrawerTrigger>Join Us</DrawerTrigger>
-            <DrawerContent className="items-center justify-items-center align-middle">
-                <DrawerHeader>
-                    <div className="bg-amber-400 rounded-full h-16 w-16"></div>
-                    <DrawerTitle>
-                        We are Happy to Have You
-                    </DrawerTitle>
-                    <DrawerDescription>
-                        Join Our WhatsApp Family. Click Below
-                    </DrawerDescription>
-                </DrawerHeader>
-                <DrawerFooter>
-                    <Button>WhatsApp Family</Button>
-                    <DrawerClose>
-                        <Button variant="outline">Close</Button>
-                    </DrawerClose>
-                </DrawerFooter>
-            </DrawerContent>
-        </Drawer>
-    </div>
-  )
-}
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button size="lg">Join Us</Button>
+      </DrawerTrigger>
 
-export default whatsappDrawer
+      <DrawerContent className="mx-auto max-w-md rounded-t-2xl px-4 pb-6 sm:px-6">
+        <DrawerHeader className="items-center text-center">
+          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-rose-400 text-lg font-semibold text-white shadow-sm">
+            ❤
+          </div>
+          <DrawerTitle className="text-2xl">We are happy to have you</DrawerTitle>
+          <DrawerDescription className="max-w-xs text-sm text-muted-foreground">
+            Join our WhatsApp family and stay connected with all the details.
+          </DrawerDescription>
+        </DrawerHeader>
+
+        <DrawerFooter className="w-full">
+          <a
+            href="https://wa.me/2348000000000"
+            target="_blank"
+            rel="noreferrer"
+            className="w-full"
+          >
+            <Button className="w-full">WhatsApp Family</Button>
+          </a>
+
+          <DrawerClose asChild>
+            <Button variant="outline" className="w-full">
+              Close
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};
+
+export default WhatsAppDrawer;
