@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, Send } from "lucide-react";
+import { AlertCircle, Check, Loader2, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,14 +18,50 @@ type FormValues = Record<string, string>;
 export function RsvpForm({ rsvp }: RsvpFormProps) {
   const [values, setValues] = React.useState<FormValues>({});
   const [submitted, setSubmitted] = React.useState(false);
+  const [sending, setSending] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleChange = (id: string, value: string) => {
     setValues((prev) => ({ ...prev, [id]: value }));
+    setError(null);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
+
+    setSending(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name ?? "",
+          guests: values.guests ?? "1",
+          email: values.email ?? "",
+          message: values.message ?? "",
+        }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(data.error ?? "Something went wrong. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (submissionError) {
+      setError(
+        submissionError instanceof Error
+          ? submissionError.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -51,6 +87,7 @@ export function RsvpForm({ rsvp }: RsvpFormProps) {
           onClick={() => {
             setSubmitted(false);
             setValues({});
+            setError(null);
           }}
         >
           Edit my RSVP
@@ -123,9 +160,28 @@ export function RsvpForm({ rsvp }: RsvpFormProps) {
         </div>
       ))}
 
-      <Button type="submit" className="w-full rounded-full">
-        {rsvp.submit}
-        <Send className="h-4 w-4" aria-hidden="true" />
+      {error && (
+        <p
+          role="alert"
+          className="flex items-start gap-2 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+        >
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          <span>{error}</span>
+        </p>
+      )}
+
+      <Button type="submit" className="w-full rounded-full" disabled={sending}>
+        {sending ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Sending…
+          </>
+        ) : (
+          <>
+            {rsvp.submit}
+            <Send className="h-4 w-4" aria-hidden="true" />
+          </>
+        )}
       </Button>
     </form>
   );

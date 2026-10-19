@@ -40,8 +40,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
+      {/* No `bg-background` here on purpose: globals.css keeps the base colour on
+          <html> and the body transparent, so the fixed `body::after` damask
+          layer (z-index: -1) is not painted over by the body background. */}
       <body
-        className={`${gotham.variable} ${script.variable} ${handwriting.variable} min-h-screen bg-background antialiased`}
+        className={`${gotham.variable} ${script.variable} ${handwriting.variable} min-h-screen antialiased`}
       >
         <ThemeProvider
           attribute="class"

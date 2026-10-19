@@ -136,7 +136,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
                   href={item.href}
                   onClick={(event) => handleNavClick(event, item.href)}
                   className={cn(
-                    "rounded-full px-3.5 py-2 text-sm transition-colors",
+                    "rounded-full px-3.5 py-2 text-sm uppercase tracking-[0.12em] transition-colors",
                     isActive
                       ? "bg-primary/15 text-primary"
                       : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
@@ -151,7 +151,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
           <a
             href={nav.ctaHref}
             onClick={(event) => handleNavClick(event, nav.ctaHref)}
-            className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            className="rounded-full bg-primary px-5 py-2 text-sm font-medium uppercase tracking-[0.12em] text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
             {nav.cta}
           </a>
@@ -182,7 +182,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
                   )}
                 >
                   <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-                  <span className="max-w-full truncate text-[9px] leading-none tracking-wide">
+                  <span className="max-w-full truncate text-[9px] leading-none uppercase tracking-[0.08em]">
                     {item.label}
                   </span>
                 </a>
@@ -206,7 +206,7 @@ export function SiteNav({ nav, className }: SiteNavProps) {
               )}
             >
               <Mail className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span className="max-w-full truncate text-[9px] leading-none tracking-wide">
+              <span className="max-w-full truncate text-[9px] leading-none uppercase tracking-[0.08em]">
                 {nav.cta}
               </span>
             </a>

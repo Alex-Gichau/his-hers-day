@@ -9,6 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
+import { WhatsappIcon } from "./whatsappIcon";
 import { siteData } from "@/data";
 
 const WhatsAppDrawer = () => {
@@ -16,6 +17,7 @@ const WhatsAppDrawer = () => {
     <Drawer>
       <DrawerTrigger asChild>
         <Button size="lg" className="rounded-full">
+          <WhatsappIcon className="h-4 w-4" />
           {siteData.hero.primaryCta}
         </Button>
       </DrawerTrigger>
@@ -40,7 +42,10 @@ const WhatsAppDrawer = () => {
             rel="noreferrer"
             className="w-full"
           >
-            <Button className="w-full rounded-full">WhatsApp Family</Button>
+            <Button className="w-full rounded-full">
+              <WhatsappIcon className="h-4 w-4" />
+              WhatsApp Family
+            </Button>
           </a>
 
           <DrawerClose asChild>

@@ -686,6 +686,601 @@
 			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
 			"isBackground": false,
 			"group": "validate"
+		},
+		{
+			"label": "check-lucide-whatsapp-icon",
+			"type": "shell",
+			"command": "node -e \"const l=require('lucide-react');const names=Object.keys(l);console.log('total',names.length);console.log('whatsapp:',names.filter(n=>/whatsapp/i.test(n)).join(',')||'NONE');console.log('message-ish:',names.filter(n=>/^(MessageCircle|MessageSquare|Send|Mail|Phone|Share2|UsersRound)/.test(n)).join(','))\"",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-whatsapp-icon",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "tsc-whatsapp-icon",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-whatsapp-icon",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3101",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3101",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-whatsapp-icon-run",
+			"type": "shell",
+			"command": "node scripts/probe-whatsapp-icon.mjs http://localhost:3101 9245",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-whatsapp-icon-run2",
+			"type": "shell",
+			"command": "node scripts/probe-whatsapp-icon.mjs http://localhost:3101 9246",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "cleanup-whatsapp-probe",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-whatsapp-icon.mjs\" & dir scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "lint-nav-uppercase",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "tsc-nav-uppercase",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-nav-uppercase",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3103",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3103",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-nav-uppercase-run",
+			"type": "shell",
+			"command": "node scripts/probe-nav-uppercase.mjs http://localhost:3103 9251",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "cleanup-nav-probe",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-nav-uppercase.mjs\" & dir scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "probe-background-run",
+			"type": "shell",
+			"command": "node scripts/probe-background.mjs http://localhost:3103 9261",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-pixels-run",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-pixels.mjs http://localhost:3103 9263",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-visible-run",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-visible.mjs http://localhost:3103 9265",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-diag-run",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-diag.mjs http://localhost:3103 9267",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-control-run",
+			"type": "shell",
+			"command": "node scripts/probe-control.mjs http://localhost:3103 9269",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-diag2-run",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-diag2.mjs http://localhost:3103 9271",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "build-pattern-fix",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3105",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3105",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-pattern-diag2-fixed",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-diag2.mjs http://localhost:3105 9273",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-weight-run",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-weight.mjs http://localhost:3105 9275",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-weight-run2",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-weight.mjs http://localhost:3105 9275",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-pattern-weight-run3",
+			"type": "shell",
+			"command": "node scripts/probe-pattern-weight.mjs http://localhost:3105 9275",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "lint-readme-pattern-fix",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "tsc-readme-pattern-fix",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false && echo TSC_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "cleanup-all-probes",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-*.mjs\" & dir scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "install-googleapis",
+			"type": "shell",
+			"command": "npm install googleapis --save",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "check-googleapis-installed",
+			"type": "shell",
+			"command": "node -e \"const p=require('./package.json'); console.log('googleapis:', p.dependencies.googleapis || 'NOT ADDED');\" && if exist node_modules\\googleapis\\package.json (echo INSTALLED) else (echo NOT_INSTALLED)",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "install-googleapis-retry",
+			"type": "shell",
+			"command": "npm install googleapis --save --no-audit --no-fund 2>&1 | more",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "check-googleapis-state2",
+			"type": "shell",
+			"command": "if exist node_modules\\googleapis\\package.json (echo INSTALLED) else (echo NOT_INSTALLED) & node -e \"const p=require('./package.json'); console.log('deps:', JSON.stringify(p.dependencies));\"",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "verify-googleapis-loads",
+			"type": "shell",
+			"command": "node -e \"try{const {google}=require('googleapis'); console.log('LOADS_OK', typeof google.gmail); const v=require('./node_modules/googleapis/package.json').version; console.log('version', v);}catch(e){console.log('LOAD_FAIL', e.message)}\" & node -e \"console.log(JSON.stringify(require('./package.json').dependencies,null,1))\"",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "install-googleapis-clean",
+			"type": "shell",
+			"command": "if exist node_modules\\googleapis rmdir /s /q node_modules\\googleapis & npm install googleapis --save --no-audit --no-fund --loglevel=error 2>&1 | more",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "verify-googleapis-loads2",
+			"type": "shell",
+			"command": "node -e \"try{const {google}=require('googleapis'); console.log('LOADS_OK gmail=', typeof google.gmail); console.log('version', require('./node_modules/googleapis/package.json').version);}catch(e){console.log('LOAD_FAIL', e.message)}\" & node -e \"console.log('deps has googleapis:', !!require('./package.json').dependencies.googleapis)\"",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "check-server-only-pkg",
+			"type": "shell",
+			"command": "if exist node_modules\\server-only (echo SERVER_ONLY_INSTALLED) else (echo SERVER_ONLY_MISSING) & node -e \"console.log('next version', require('./node_modules/next/package.json').version)\"",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "resolve-server-only",
+			"type": "shell",
+			"command": "node -e \"try{console.log('resolved:', require.resolve('server-only'))}catch(e){console.log('UNRESOLVED')}\" & dir /b node_modules\\next\\node_modules 2>nul | findstr /i server",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "install-server-only",
+			"type": "shell",
+			"command": "npm install server-only --save --no-audit --no-fund --loglevel=error 2>&1 | more & node -e \"console.log('resolved:', require.resolve('server-only'))\"",
+			"isBackground": false,
+			"group": "deps"
+		},
+		{
+			"label": "tsc-gmail-rsvp",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit --pretty false 2>&1 | more",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-gmail-rsvp",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "lint-gmail-rsvp2",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "probe-rsvp-subject-run",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-subject.mjs 2>&1 | more",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-subject-run2",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-subject.mjs 2>&1 | more",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-subject-full",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-subject.mjs > scripts\\rsvp-subject-out.txt 2>&1 & type scripts\\rsvp-subject-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-gmail-raw-run",
+			"type": "shell",
+			"command": "node scripts/probe-gmail-raw.mjs > scripts\\gmail-raw-out.txt 2>&1 & type scripts\\gmail-raw-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-gmail-raw-run2",
+			"type": "shell",
+			"command": "node scripts/probe-gmail-raw.mjs > scripts\\gmail-raw-out.txt 2>&1 & type scripts\\gmail-raw-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-gmail-raw-run3",
+			"type": "shell",
+			"command": "node scripts/probe-gmail-raw.mjs > scripts\\gmail-raw-out.txt 2>&1 & type scripts\\gmail-raw-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-gmail-raw-run4",
+			"type": "shell",
+			"command": "node scripts/probe-gmail-raw.mjs > scripts\\gmail-raw-out.txt 2>&1 & type scripts\\gmail-raw-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "build-gmail-rsvp",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack 2>&1 | more",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "build-gmail-rsvp-full",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack > scripts\\build-out.txt 2>&1 & type scripts\\build-out.txt",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "show-build-output",
+			"type": "shell",
+			"command": "type scripts\\build-out.txt",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "check-build-routes",
+			"type": "shell",
+			"command": "type scripts\\build-out.txt | findstr /i \"Route api error Failed ✓ ΓÇô ƒ\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "check-build-routes3",
+			"type": "shell",
+			"command": "node -e \"const t=require('fs').readFileSync('scripts/build-out.txt','utf8'); console.log(t.split(/\\r?\\n/).filter(l=>/Route|api|rsvp|rror|ailed|ompiled|enerating static pages|First Load|Size|\\u2500|\\u250c|\\u251c|\\u2514|\\u25CB|\\u0192/.test(l)).join('\\n'))\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3107",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3107",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-api-rsvp-unconfigured",
+			"type": "shell",
+			"command": "node -e \"\nconst url='http://localhost:3107/api/rsvp';\nasync function post(body,label){\n  try{\n    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});\n    const t=await r.text();\n    console.log(label,'->',r.status,t.slice(0,200));\n  }catch(e){console.log(label,'-> ERR',e.message)}\n}\n(async()=>{\n  await post({name:'Ada Lovelace',guests:'4',email:'ada@example.com',message:'Cannot wait!'},'valid-no-config');\n  await post({name:'',guests:'2',email:'x@example.com',message:'hi'},'empty-name');\n  await post({guests:'2'},'missing-name');\n  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:'not-json'});\n  console.log('malformed-json ->',r.status,(await r.text()).slice(0,120));\n})();\n\"",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-api-rsvp-run",
+			"type": "shell",
+			"command": "node scripts/probe-api-rsvp.mjs http://localhost:3107/api/rsvp > scripts\\api-out.txt 2>&1 & type scripts\\api-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-e2e-run",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-e2e-run2",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-e2e-run3",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-e2e-run4",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-ui-run",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-ui.mjs http://localhost:3107 9281 > scripts\\ui-out.txt 2>&1 & type scripts\\ui-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "probe-rsvp-ui-run2",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-ui.mjs http://localhost:3107 9283 > scripts\\ui-out.txt 2>&1 & type scripts\\ui-out.txt",
+			"isBackground": false,
+			"group": "probe"
+		},
+		{
+			"label": "cleanup-probe-scripts-1",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-*.mjs\" & del /q \"scripts\\*-out.txt\" & del /q \"scripts\\e2e-out.txt\" & dir /b scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "cleanup-probe-scripts-2",
+			"type": "shell",
+			"command": "del /q \"scripts\\setup-gmail-mock.mjs\" & dir /b scripts & type .gitignore",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "lint-final-gmail",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "tsc-final-gmail",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit && echo TSC_OK",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "build-final-gmail",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "prod-start-3109",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3109",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "smoke-rsvp-prod",
+			"type": "shell",
+			"command": "node scripts/smoke-rsvp.mjs http://localhost:3109 > scripts\\smoke-out.txt 2>&1 & type scripts\\smoke-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "check-env-files",
+			"type": "shell",
+			"command": "if exist .env (echo \"--- .env ---\" & type .env) else (echo \"no .env\") & if exist .env.local (echo \"--- .env.local ---\" & type .env.local) else (echo \"no .env.local\")",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "preflight-gmail-run",
+			"type": "shell",
+			"command": "node scripts/preflight-gmail.mjs > scripts\\preflight-out.txt 2>&1 & type scripts\\preflight-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "preflight-gmail-run2",
+			"type": "shell",
+			"command": "node scripts/preflight-gmail.mjs > scripts\\preflight-out.txt 2>&1 & type scripts\\preflight-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "preflight-gmail-run3",
+			"type": "shell",
+			"command": "node scripts/preflight-gmail.mjs > scripts\\preflight-out.txt 2>&1 & type scripts\\preflight-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "preflight-gmail-run4",
+			"type": "shell",
+			"command": "node scripts/preflight-gmail.mjs > scripts\\preflight-out.txt 2>&1 & type scripts\\preflight-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "lint-final2-gmail",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "tsc-final2-gmail",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit && echo TSC_OK",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "build-final2-gmail",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "probe-rsvp-e2e-run5",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "probe-rsvp-e2e-run6",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-e2e.mjs > scripts\\e2e-out.txt 2>&1 & type scripts\\e2e-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "prod-start-3111",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3111",
+			"isBackground": true,
+			"group": "serve"
+		},
+		{
+			"label": "probe-rsvp-ui-run3",
+			"type": "shell",
+			"command": "node scripts/probe-rsvp-ui.mjs http://localhost:3111 9285 > scripts\\ui-out.txt 2>&1 & type scripts\\ui-out.txt",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "cleanup-probe-scripts-final",
+			"type": "shell",
+			"command": "del /q \"scripts\\probe-*.mjs\" & del /q \"scripts\\smoke-rsvp.mjs\" & del /q \"scripts\\preflight-gmail.mjs\" & del /q \"scripts\\*-out.txt\" & del /q \"scripts\\smoke-out.txt\" & del /q \"scripts\\preflight-out.txt\" & dir /b scripts",
+			"isBackground": false,
+			"group": "cleanup"
+		},
+		{
+			"label": "lint-final3-gmail",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && echo LINT_OK",
+			"isBackground": false,
+			"group": "verify"
+		},
+		{
+			"label": "tsc-final3-gmail",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit && echo TSC_OK",
+			"isBackground": false,
+			"group": "verify"
 		}
 	]
 }
