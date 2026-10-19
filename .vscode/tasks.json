@@ -287,6 +287,48 @@
 			"command": "node node_modules/next/dist/bin/next start -p 3082",
 			"isBackground": true,
 			"group": "build"
+		},
+		{
+			"label": "check-praise-font",
+			"type": "shell",
+			"command": "node -e \"const d=require('next/dist/compiled/@next/font/dist/google/font-data.json'); console.log('HAS_PRAISE=' + ('Praise' in d)); console.log(JSON.stringify(d['Praise']))\"",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "validate-marquee",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-marquee-v1",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3083",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3083",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-final-praise",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-final-praise",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }

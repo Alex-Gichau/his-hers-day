@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Great_Vibes, Montserrat, Parisienne } from "next/font/google";
+import { Montserrat, Praise } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -9,14 +9,9 @@ const gotham = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const script = Great_Vibes({
+// "Praise" is the wedding script used for all display typography.
+const script = Praise({
   variable: "--font-wedding-script",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const scriptAlt = Parisienne({
-  variable: "--font-wedding-script-alt",
   subsets: ["latin"],
   weight: "400",
 });
@@ -39,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${gotham.variable} ${script.variable} ${scriptAlt.variable} min-h-screen bg-background antialiased`}
+        className={`${gotham.variable} ${script.variable} min-h-screen bg-background antialiased`}
       >
         <ThemeProvider
           attribute="class"

@@ -14,6 +14,7 @@ import {
 import WhatsAppDrawer from "@/components/whatsappDrawer";
 import WeddingCalendar from "@/components/weddingCalendar";
 import { Countdown } from "@/components/countdown";
+import { GalleryMarquee } from "@/components/galleryMarquee";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -66,7 +67,7 @@ export default function Home() {
         </div>
 
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 sm:pb-14 lg:px-8">
+          <div className="container-page pb-10 sm:pb-14">
             <div className="max-w-2xl space-y-5">
               <Badge className="max-w-full whitespace-normal rounded-full border-rose-800 bg-rose-950/40 px-3 py-1 text-left text-[11px] font-medium uppercase tracking-[0.24em] text-rose-300 [&>svg]:size-3.5">
                 <Sparkles className="h-3.5 w-3.5 shrink-0" />
@@ -100,8 +101,8 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
-        <main className="space-y-8">
+      <main className="space-y-8 pb-16 pt-8">
+        <div className="container-page space-y-8">
           <section className="grid gap-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
             <div className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm">
               <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Our day</p>
@@ -128,8 +129,10 @@ export default function Home() {
               );
             })}
           </section>
+        </div>
 
-          <section id="gallery" className="space-y-4">
+        <section id="gallery" className="space-y-4">
+          <div className="container-page">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{gallery.eyebrow}</p>
@@ -139,24 +142,12 @@ export default function Home() {
                 {gallery.cta}
               </Button>
             </div>
+          </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {gallery.images.map((image, index) => (
-                <Card key={`${image.alt}-${index}`} className="overflow-hidden border-0 p-0 shadow-sm">
-                  <div className="relative h-72 w-full">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </section>
+          <GalleryMarquee images={gallery.images} />
+        </section>
 
+        <div className="container-page space-y-8">
           <section className="grid gap-4 md:grid-cols-3">
             {features.map((feature, index) => {
               const Icon = iconMap[feature.icon];
@@ -336,13 +327,13 @@ export default function Home() {
               </div>
             </Card>
           </section>
-        </main>
+        </div>
+      </main>
 
-        <footer className="pb-8 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{footer.eyebrow}</p>
-          <h3 className="font-wedding mt-3 text-5xl text-foreground">{footer.name}</h3>
-        </footer>
-      </div>
+      <footer className="container-page pb-8 text-center">
+        <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{footer.eyebrow}</p>
+        <h3 className="font-wedding mt-3 text-5xl text-foreground">{footer.name}</h3>
+      </footer>
     </div>
   );
 }
