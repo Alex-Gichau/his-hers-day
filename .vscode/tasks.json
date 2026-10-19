@@ -329,6 +329,90 @@
 			"command": "node node_modules/next/dist/bin/next build --turbopack",
 			"isBackground": false,
 			"group": "build"
+		},
+		{
+			"label": "validate-nav",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-nav-v1",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3084",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3084",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-nav-v2",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-nav-v2",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3085",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3085",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-nav-v3",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-nav-v3",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3086",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3086",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "validate-nav-v4",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false,
+			"group": "validate"
+		},
+		{
+			"label": "build-nav-v4",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "prod-start-3087",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next start -p 3087",
+			"isBackground": true,
+			"group": "build"
 		}
 	]
 }

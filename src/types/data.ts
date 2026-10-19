@@ -1,26 +1,38 @@
 import type { LucideIcon } from "lucide-react";
 import {
   CalendarDays,
+  CalendarHeart,
   Camera,
+  Clock3,
   Gift,
   Heart,
+  Images,
+  Mail,
   MapPin,
   Music4,
 } from "lucide-react";
 
 export type IconName =
   | "CalendarDays"
+  | "CalendarHeart"
   | "Camera"
+  | "Clock3"
   | "Gift"
   | "Heart"
+  | "Images"
+  | "Mail"
   | "MapPin"
   | "Music4";
 
 export const iconMap: Record<IconName, LucideIcon> = {
   CalendarDays,
+  CalendarHeart,
   Camera,
+  Clock3,
   Gift,
   Heart,
+  Images,
+  Mail,
   MapPin,
   Music4,
 };
@@ -92,6 +104,19 @@ export interface VenueData {
   image: ImageItem;
 }
 
+export interface NavItem {
+  label: string;
+  href: string;
+  icon: IconName;
+}
+
+export interface NavData {
+  brand: string;
+  brandName: string;
+  items: NavItem[];
+  cta: string;
+}
+
 export interface CountdownData {
   title: string;
   subtitle: string;
@@ -135,6 +160,7 @@ export interface SiteData {
   timeline: TimelineData;
   rsvp: RsvpData;
   venue: VenueData;
+  nav: NavData;
   footer: {
     eyebrow: string;
     name: string;

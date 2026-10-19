@@ -175,6 +175,19 @@
       "alt": "Wedding venue as a community celebration"
     }
   },
+  "nav": {
+    "brand": "G&P",
+    "brandName": "Gloria & Peter",
+    "items": [
+      { "label": "Our Day", "href": "#our-day", "icon": "CalendarHeart" },
+      { "label": "Gallery", "href": "#gallery", "icon": "Images" },
+      { "label": "Story", "href": "#story", "icon": "Heart" },
+      { "label": "Schedule", "href": "#details", "icon": "Clock3" },
+      { "label": "Venue", "href": "#venue", "icon": "MapPin" },
+      { "label": "RSVP", "href": "#rsvp", "icon": "Mail" }
+    ],
+    "cta": "RSVP"
+  },
   "footer": {
     "eyebrow": "With love",
     "name": "Gloria & Peter"

@@ -15,6 +15,7 @@ import WhatsAppDrawer from "@/components/whatsappDrawer";
 import WeddingCalendar from "@/components/weddingCalendar";
 import { Countdown } from "@/components/countdown";
 import { GalleryMarquee } from "@/components/galleryMarquee";
+import { SiteNav } from "@/components/siteNav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,12 +45,15 @@ export default function Home() {
     timeline,
     rsvp,
     venue,
+    nav,
     footer,
   } = siteData;
 
   return (
     <div className="min-h-screen bg-transparent text-foreground">
-      <section className="relative w-full">
+      <SiteNav nav={nav} />
+
+      <section id="top" className="relative w-full">
         <div className="relative w-full overflow-hidden">
           <Image
             src={hero.image.src}
@@ -101,9 +105,12 @@ export default function Home() {
         </div>
       </section>
 
-      <main className="space-y-8 pb-16 pt-8">
+      <main className="space-y-8 pb-28 pt-16 sm:pb-16 sm:pt-24">
         <div className="container-page space-y-8">
-          <section className="grid gap-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+          <section
+            id="our-day"
+            className="grid scroll-mt-20 gap-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]"
+          >
             <div className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm">
               <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Our day</p>
               <p className="font-wedding-alt mt-1 flex items-center gap-2 text-2xl text-foreground">
@@ -131,7 +138,7 @@ export default function Home() {
           </section>
         </div>
 
-        <section id="gallery" className="space-y-4">
+        <section id="gallery" className="scroll-mt-20 space-y-4">
           <div className="container-page">
             <div className="flex items-end justify-between gap-3">
               <div>
@@ -175,7 +182,7 @@ export default function Home() {
             })}
           </section>
 
-          <section id="story" className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <section id="story" className="grid scroll-mt-20 gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div className="space-y-4">
               <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{story.eyebrow}</p>
               <h3 className="font-wedding text-4xl text-foreground sm:text-5xl">{story.title}</h3>
@@ -209,7 +216,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="details" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <section id="details" className="scroll-mt-20">
             <Card className="border-0 shadow-sm">
               <CardHeader>
                 <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
@@ -219,23 +226,27 @@ export default function Home() {
                 <CardDescription>{timeline.description}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-5">
-                {timeline.items.map((entry, index) => (
-                  <div key={entry.time} className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary" />
-                      {index !== timeline.items.length - 1 && <div className="mt-1 h-full w-px bg-border" />}
-                    </div>
+                <div className="grid gap-x-8 gap-y-0 md:grid-cols-2">
+                  {timeline.items.map((entry, index) => (
+                    <div key={entry.time} className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="flex h-4 w-4 items-center justify-center rounded-full bg-primary" />
+                        {index !== timeline.items.length - 1 && <div className="mt-1 h-full w-px bg-border" />}
+                      </div>
 
-                    <div className="flex-1 pb-4">
-                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{entry.time}</p>
-                      <h4 className="font-wedding-alt mt-1 text-2xl text-foreground">{entry.title}</h4>
-                      <p className="mt-1 text-sm leading-6 text-muted-foreground">{entry.detail}</p>
+                      <div className="flex-1 pb-4">
+                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{entry.time}</p>
+                        <h4 className="font-wedding-alt mt-1 text-2xl text-foreground">{entry.title}</h4>
+                        <p className="mt-1 text-sm leading-6 text-muted-foreground">{entry.detail}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </CardContent>
             </Card>
+          </section>
 
+          <section id="rsvp" className="scroll-mt-20">
             <Card className="border-0 shadow-sm">
               <CardHeader>
                 <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
@@ -286,7 +297,7 @@ export default function Home() {
             </Card>
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
+          <section id="venue" className="grid scroll-mt-20 gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
             <Card className="min-w-0 overflow-hidden border-0 bg-[linear-gradient(135deg,#2c2423,#2a1e1d)] shadow-sm">
               <CardHeader>
                 <CardTitle className="font-wedding flex items-center gap-2 text-4xl text-foreground">
@@ -330,7 +341,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="container-page pb-8 text-center">
+      <footer className="container-page pb-24 text-center sm:pb-8">
         <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{footer.eyebrow}</p>
         <h3 className="font-wedding mt-3 text-5xl text-foreground">{footer.name}</h3>
       </footer>
