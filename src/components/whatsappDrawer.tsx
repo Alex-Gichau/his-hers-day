@@ -9,12 +9,15 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
+import { siteData } from "@/data";
 
 const WhatsAppDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button size="lg">Join Us</Button>
+        <Button size="lg" className="rounded-full">
+          {siteData.hero.primaryCta}
+        </Button>
       </DrawerTrigger>
 
       <DrawerContent className="mx-auto max-w-md rounded-t-2xl px-4 pb-6 sm:px-6">

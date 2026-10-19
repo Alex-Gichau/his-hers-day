@@ -1,0 +1,184 @@
+{
+  "couple": {
+    "initials": "G&P",
+    "nameOne": "Gloria",
+    "nameTwo": "Peter",
+    "displayName": "Gloria & Peter",
+    "eyebrow": "Save the date"
+  },
+  "wedding": {
+    "date": "2026-12-05",
+    "dateLabel": "05 Dec 2026",
+    "venue": "The Willow Garden",
+    "address": "24 Rose Avenue, Sandton, Johannesburg",
+    "dressCodeLabel": "Dress code",
+    "dressCode": "Formal elegance in soft romantic tones.",
+    "giftsLabel": "Gifts",
+    "gifts": "Your presence is the greatest gift of all."
+  },
+  "hero": {
+    "badge": "Wedding celebration",
+    "greeting": "Dear family & friends",
+    "title": "We're saying yes",
+    "titleAccent": "to forever.",
+    "description": "Join us as we celebrate our love, laughter, and a new chapter together on this beautiful day filled with heartfelt moments and warm memories.",
+    "primaryCta": "Join Us",
+    "secondaryCta": "View details",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=80",
+      "alt": "Couple embracing outdoors"
+    }
+  },
+  "countdown": {
+    "title": "Counting down",
+    "subtitle": "Until we say I do",
+    "pastTitle": "We said I do",
+    "pastMessage": "Thank you for celebrating with us."
+  },
+  "highlights": [
+    { "icon": "MapPin", "label": "Venue", "value": "The Willow Garden" },
+    { "icon": "CalendarDays", "label": "Date", "value": "05 Dec 2026" },
+    { "icon": "Music4", "label": "Dress Code", "value": "Formal Elegance" }
+  ],
+  "features": [
+    {
+      "icon": "Heart",
+      "title": "Our story",
+      "description": "From a chance meeting to a forever promise, every step has led us here."
+    },
+    {
+      "icon": "Camera",
+      "title": "Memories",
+      "description": "A collection of moments that made our journey feel like home."
+    },
+    {
+      "icon": "Gift",
+      "title": "Celebrations",
+      "description": "An evening of music, stories, and heartfelt celebrations with those we love."
+    }
+  ],
+  "story": {
+    "eyebrow": "Our journey",
+    "title": "A love story worth celebrating",
+    "description": "What started as a simple hello turned into a beautiful friendship, a deep connection, and a love we never want to live without. We are delighted to share our happiest day with the people who have shaped our story.",
+    "points": [
+      "Intimate ceremony with our closest family and friends",
+      "Dinner and heartfelt speeches from the people we love most",
+      "A lively evening of dancing, laughter, and celebration"
+    ],
+    "images": [
+      {
+        "src": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple portrait"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple laughing together"
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Our gallery",
+    "title": "Moments we treasure",
+    "cta": "See more",
+    "images": [
+      {
+        "src": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple walking together"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple embracing"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple smiling outdoors"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=80",
+        "alt": "Couple holding hands"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
+        "alt": "Celebration moment"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80",
+        "alt": "Wedding day portrait"
+      }
+    ]
+  },
+  "timeline": {
+    "title": "Wedding timeline",
+    "description": "Everything you need to know for the day of celebration.",
+    "items": [
+      {
+        "time": "03:30 PM",
+        "title": "Guest Arrival",
+        "detail": "Welcome drinks and soft live music."
+      },
+      {
+        "time": "04:15 PM",
+        "title": "Ceremony",
+        "detail": "The vows begin beneath the floral arch."
+      },
+      {
+        "time": "05:30 PM",
+        "title": "Reception",
+        "detail": "Dinner, laughter, and a toast to forever."
+      },
+      {
+        "time": "07:00 PM",
+        "title": "Dance Night",
+        "detail": "Cake cutting, dancing, and unforgettable memories."
+      }
+    ]
+  },
+  "rsvp": {
+    "title": "RSVP form",
+    "description": "We would love to celebrate with you.",
+    "fields": [
+      {
+        "id": "name",
+        "label": "Name",
+        "type": "text",
+        "placeholder": "Your full name",
+        "half": true
+      },
+      {
+        "id": "guests",
+        "label": "Guests",
+        "type": "text",
+        "placeholder": "2 guests",
+        "half": true
+      },
+      {
+        "id": "email",
+        "label": "Email",
+        "type": "email",
+        "placeholder": "you@example.com",
+        "half": false
+      },
+      {
+        "id": "message",
+        "label": "Message",
+        "type": "textarea",
+        "placeholder": "Share a note for the couple...",
+        "half": false
+      }
+    ],
+    "submit": "Send RSVP"
+  },
+  "venue": {
+    "title": "Venue details",
+    "description": "We'll be gathering at the heart of the city.",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+      "alt": "Wedding venue as a community celebration"
+    }
+  },
+  "footer": {
+    "eyebrow": "With love",
+    "name": "Gloria & Peter"
+  }
+}

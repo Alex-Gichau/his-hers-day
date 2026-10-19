@@ -1,0 +1,77 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "lint",
+			"type": "shell",
+			"command": "./node_modules/.bin/eslint.cmd .",
+			"isBackground": false
+		},
+		{
+			"label": "eslint",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src",
+			"isBackground": false
+		},
+		{
+			"label": "tsc",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit",
+			"isBackground": false
+		},
+		{
+			"label": "tsc",
+			"type": "shell",
+			"command": "node node_modules/typescript/bin/tsc --noEmit",
+			"isBackground": false
+		},
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false
+		},
+		{
+			"label": "dev",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next dev --turbopack -p 3010",
+			"isBackground": true
+		},
+		{
+			"label": "dev-clean",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next dev --turbopack -p 3011",
+			"isBackground": true
+		},
+		{
+			"label": "validate",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo ALL_CHECKS_PASSED",
+			"isBackground": false
+		},
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false
+		},
+		{
+			"label": "dev-3012",
+			"type": "shell",
+			"command": "if exist .next rmdir /s /q .next & node node_modules/next/dist/bin/next dev --turbopack -p 3012",
+			"isBackground": true
+		},
+		{
+			"label": "validate",
+			"type": "shell",
+			"command": "node node_modules/eslint/bin/eslint.js src && node node_modules/typescript/bin/tsc --noEmit && echo VALIDATION_PASSED",
+			"isBackground": false
+		},
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "node node_modules/next/dist/bin/next build --turbopack",
+			"isBackground": false
+		}
+	]
+}
