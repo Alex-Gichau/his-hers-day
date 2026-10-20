@@ -44,6 +44,13 @@ function getSenderName(): string {
   ).trim();
 }
 
+/** A pragmatic email shape check — not RFC 5322, but enough to catch typos. */
+const EMAIL_PATTERN = /^[^\s@,;<>"\\]+@[^\s@,;<>"\\]+\.[^\s@,;<>"\\]{2,}$/;
+
+/** Upper bounds so a single request cannot build an enormous email. */
+const MAX_NAME_LENGTH = 200;
+const MAX_MESSAGE_LENGTH = 5000;
+
 /**
  * "Ada Lovelace" -> "Ada has RSVP'd"
  * "Ada Lovelace" + 4 guests -> "Ada Lovelace has RSVP'd with 4 Guests"
@@ -93,6 +100,31 @@ export async function POST(request: Request) {
 
   if (!name.trim()) {
     return NextResponse.json({ error: "Please add your name." }, { status: 400 });
+  }
+
+  // The email is optional, but if one is given it must be usable — it ends up
+  // in the `Reply-To` header.
+  if (email.trim() && !EMAIL_PATTERN.test(email.trim())) {
+    return NextResponse.json(
+      { error: "Please check the email address." },
+      { status: 400 },
+    );
+  }
+
+  // Keep the payload within sane limits so one request cannot produce an
+  // enormous email.
+  if (name.length > MAX_NAME_LENGTH) {
+    return NextResponse.json(
+      { error: "That name is too long." },
+      { status: 400 },
+    );
+  }
+
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    return NextResponse.json(
+      { error: "That message is too long." },
+      { status: 400 },
+    );
   }
 
   const guests = Number(payload.guests);

@@ -1281,6 +1281,13 @@
 			"command": "node node_modules/typescript/bin/tsc --noEmit && echo TSC_OK",
 			"isBackground": false,
 			"group": "verify"
+		},
+		{
+			"label": "show-final-diff-core",
+			"type": "shell",
+			"command": "git diff -- src/lib/gmail/gmailApp.ts src/app/api/rsvp/route.ts",
+			"isBackground": false,
+			"group": "verify"
 		}
 	]
 }

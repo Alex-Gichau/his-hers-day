@@ -33,6 +33,16 @@ export interface SendEmailResult {
 }
 
 /**
+ * Strips CR/LF from a value that is about to be placed in a header.
+ *
+ * A guest-supplied name or email containing `\r\n` would otherwise let them
+ * append arbitrary headers (Bcc, Cc, ...) to the outgoing message.
+ */
+function sanitizeHeaderValue(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
+/**
  * Builds the raw RFC 2822 message that the Gmail `messages.send` endpoint
  * expects. Using `raw` (rather than the structured `message` payload) keeps
  * headers such as `senderName` under our control.
@@ -46,20 +56,22 @@ function buildRawMessage({
   replyTo,
   from,
 }: SendEmailOptions & { from: string }): string {
-  const recipients = Array.isArray(to) ? to : [to];
+  const recipients = (Array.isArray(to) ? to : [to]).map((address) =>
+    sanitizeHeaderValue(address),
+  );
 
   // The `From` address must be the authenticated mailbox (or one of its
   // aliases) — Gmail rejects the request otherwise. The guest's address
   // belongs in `Reply-To` so the couple can hit reply.
   const headers = [
     `To: ${recipients.join(", ")}`,
-    `Subject: ${subject}`,
+    `Subject: ${sanitizeHeaderValue(subject)}`,
     `From: ${formatAddress(from, senderName)}`,
     "MIME-Version: 1.0",
   ];
 
   if (replyTo && replyTo !== from) {
-    headers.push(`Reply-To: ${replyTo}`);
+    headers.push(`Reply-To: ${sanitizeHeaderValue(replyTo)}`);
   }
 
   const textBody = body.replace(/\r?\n/g, "\r\n");
@@ -94,13 +106,14 @@ function buildRawMessage({
 
 /** Formats an address for a header, e.g. `Hers & His <rsvp@example.com>`. */
 function formatAddress(address: string, displayName?: string): string {
-  if (!displayName) return address;
+  const safeAddress = sanitizeHeaderValue(address);
+  if (!displayName) return safeAddress;
   // Quote the display name when it contains characters that would break the
   // header syntax.
   const name = /[",:;<>@[\]\\]/.test(displayName)
     ? `"${displayName.replace(/"/g, '\\"')}"`
     : displayName;
-  return `${name} <${address}>`;
+  return `${sanitizeHeaderValue(name)} <${safeAddress}>`;
 }
 
 /** Encodes a string as base64url, which is what the Gmail API expects. */
@@ -111,8 +124,6 @@ function encodeBase64Url(value: string): string {
     .replace(/\//g, "_")
     .replace(/=+$/, "");
 }
-
-let cachedAuth: { client: string; refreshToken: string } | null = null;
 
 function getAuthConfig(): { client: string; refreshToken: string } {
   const client =
@@ -126,8 +137,7 @@ function getAuthConfig(): { client: string; refreshToken: string } {
     );
   }
 
-  cachedAuth = { client, refreshToken };
-  return cachedAuth;
+  return { client, refreshToken };
 }
 
 /** True when the server has enough configuration to send mail. */

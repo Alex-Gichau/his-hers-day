@@ -94,6 +94,7 @@ src/data/data.json  ->  src/data/index.ts  ->  import { siteData } from "@/data"
 | `map` | `embedUrl` (the iframe `src`), `directionsUrl`, `title`, `description`. |
 | `venue` | `title`, `description`, and the venue `image`. |
 | `nav` | `brand`, `brandName`, `items[]` (`label` / `href` / `icon`), `cta`, and `ctaHref`. |
+| `whatsapp` | `number` (the family-group number, **digits only** — no `+`, spaces or dashes) and `message` (pre-filled in the chat). The "Join Us" button and drawer build their link from these. |
 | `footer` | `eyebrow` and `name`. |
 | `story` | **Legacy** — kept for reference, but no longer rendered (the letter section replaced it). Safe to delete along with `StoryData`. |
 
@@ -123,6 +124,20 @@ The email is sent **from** the configured sender mailbox with the **sender name*
 
 > The `From` address must be the authenticated mailbox (or one of its aliases) — Gmail rejects the request otherwise. The guest's address is never used as the sender.
 
+### What the API validates
+
+`/api/rsvp` rejects bad input with a `400` and a human-readable message before any mail is sent:
+
+| Check | Response |
+| --- | --- |
+| Missing or blank `name` | `400` — *"Please add your name."* |
+| `name` longer than 200 characters | `400` — *"That name is too long."* |
+| `email` missing or not a valid address shape | `400` — *"Please check the email address."* |
+| `message` longer than 5 000 characters | `400` — *"That message is too long."* |
+| Body is not valid JSON | `400` — *"Invalid request body."* |
+
+Every header value that comes from the guest (name, email, recipients) is passed through a `sanitizeHeaderValue()` helper that strips `\r` and `\n`. Without it, a guest could type a line break into the name field and inject their own `Bcc:` header into the outgoing mail.
+
 ---
 
 ## Sending RSVP emails
@@ -134,7 +149,7 @@ RSVP submissions are delivered through the **Gmail API** using a server-side OAu
 1. Open the [Google Cloud Console](https://console.cloud.google.com/) and create (or pick) a project.
 2. Enable the **Gmail API** under *APIs & Services → Library*.
 3. Under *APIs & Services → Credentials*, create an **OAuth client ID** of type **Web application**.
-4. Add `http://localhost:3000/api/oauth/callback` (or whatever port you use) to the client's **Authorised redirect URIs**.
+4. Add `http://localhost:3000/oauth2callback` (or whatever port you use) to the client's **Authorised redirect URIs**. This must match `GMAIL_REDIRECT_URI` in `.env.local`, which is what `scripts/gmail-auth.mjs` uses.
 
 ### 2. Get a refresh token
 
@@ -263,3 +278,7 @@ Praise is a display face with only weight 400 and no true bold, so emphasis come
 - **The RSVP route must stay on the Node runtime.** `src/app/api/rsvp/route.ts` sets `export const runtime = "nodejs"` because `googleapis` needs Node built-ins. It also sets `dynamic = "force-dynamic"` so it is never statically rendered at build time.
 - **The refresh token is the secret.** The access token is short-lived and refreshed automatically; the refresh token is what must be protected. `.env*` is git-ignored — keep it that way.
 - **`From` must be the authenticated mailbox.** Gmail rejects a message whose `From` is not the account (or an alias of it) the request is authenticated for. The guest's address belongs in `Reply-To`.
+- **Never trust a guest-supplied header.** The name, email, and recipient fields end up in the raw RFC 822 message. `sanitizeHeaderValue()` in `src/lib/gmail/gmailApp.ts` strips `\r`/`\n` from every one of them — without it, a name like `Bob\r\nBcc: victim@example.com` would inject a real `Bcc` header and silently copy every RSVP to a third party.
+- **`overflow-x: clip` on `<html>` is load-bearing.** The scroll-reveal animations translate their element sideways (`.reveal-from-left` / `.reveal-from-right` use `translate3d(±32px, 0, 0)`) before it fades in. On a 390px-wide phone that pushes the element past the viewport and lets the page scroll sideways. `clip` — not `hidden` — contains the overflow without creating a scroll container, so `position: sticky` keeps working.
+- **The guests slider is fully controlled.** `GuestsSlider` takes `value` and `onValueChange` as required props and holds no internal state, and `rsvpForm` seeds `initialValues` from each range field's `min`. The number shown can therefore never drift from the number submitted.
+- **`scrollWidth` is not a reliable overflow test.** `overflow-x: clip` keeps `scrollWidth` wider than the viewport even though the page genuinely cannot scroll sideways. Test it by calling `window.scrollTo(300, 0)` and reading `window.scrollX` back — it must still be `0`.

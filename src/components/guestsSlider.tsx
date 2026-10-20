@@ -8,30 +8,32 @@ interface GuestsSliderProps {
   id: string;
   min?: number;
   max?: number;
-  defaultValue?: number;
-  /** Notified whenever the value changes. */
-  onValueChange?: (value: number) => void;
+  /** The current value. The component is fully controlled. */
+  value: number;
+  /** Called whenever the value changes. */
+  onValueChange: (value: number) => void;
   className?: string;
 }
 
 /**
  * A compact numeric slider used for the "Guests" RSVP field.
  * The track is styled from scratch so it matches the dark theme.
+ *
+ * The slider is fully controlled so the number shown here can never drift
+ * from the value the form submits.
  */
 export function GuestsSlider({
   id,
   min = 1,
   max = 5,
-  defaultValue = 2,
+  value,
   onValueChange,
   className,
 }: GuestsSliderProps) {
-  const [value, setValue] = React.useState(defaultValue);
   const pct = ((value - min) / (max - min)) * 100;
 
   const handleChange = (next: number) => {
-    setValue(next);
-    onValueChange?.(next);
+    onValueChange(next);
   };
 
   return (

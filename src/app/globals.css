@@ -129,6 +129,12 @@
     /* Base colour lives on the root so the body background is not
        propagated to the canvas (that would hide the pattern layer). */
     background-color: var(--background);
+    /* The horizontal scroll-reveal animations translate their element
+       sideways before it fades in. On narrow screens that pushes the
+       element past the viewport, which lets the page scroll sideways.
+       `clip` (not `hidden`) contains the overflow without creating a
+       scroll container, so `position: sticky` keeps working. */
+    overflow-x: clip;
   }
 
   html::-webkit-scrollbar {

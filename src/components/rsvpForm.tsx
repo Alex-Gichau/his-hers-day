@@ -16,7 +16,21 @@ interface RsvpFormProps {
 type FormValues = Record<string, string>;
 
 export function RsvpForm({ rsvp }: RsvpFormProps) {
-  const [values, setValues] = React.useState<FormValues>({});
+  // Seed the range fields with their minimum so the slider's starting
+  // position and the submitted payload are always the same number.
+  const initialValues = React.useMemo<FormValues>(() => {
+    const seeded: FormValues = {};
+
+    for (const field of rsvp.fields) {
+      if (field.type === "range") {
+        seeded[field.id] = String(field.min ?? 1);
+      }
+    }
+
+    return seeded;
+  }, [rsvp.fields]);
+
+  const [values, setValues] = React.useState<FormValues>(initialValues);
   const [submitted, setSubmitted] = React.useState(false);
   const [sending, setSending] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -86,7 +100,7 @@ export function RsvpForm({ rsvp }: RsvpFormProps) {
           className="rounded-full px-6"
           onClick={() => {
             setSubmitted(false);
-            setValues({});
+            setValues(initialValues);
             setError(null);
           }}
         >
@@ -101,11 +115,16 @@ export function RsvpForm({ rsvp }: RsvpFormProps) {
 
   const renderField = (field: (typeof rsvp.fields)[number]) => {
     if (field.type === "range") {
+      const min = field.min ?? 1;
+      const max = field.max ?? 5;
+      const current = Number(values[field.id] ?? min);
+
       return (
         <GuestsSlider
           id={field.id}
-          min={field.min ?? 1}
-          max={field.max ?? 5}
+          min={min}
+          max={max}
+          value={current}
           onValueChange={(value) => handleChange(field.id, String(value))}
         />
       );

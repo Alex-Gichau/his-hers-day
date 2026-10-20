@@ -187,4 +187,10 @@ export interface SiteData {
     eyebrow: string;
     name: string;
   };
+  whatsapp: {
+    /** The WhatsApp family-group number, digits only (no `+`, spaces or dashes). */
+    number: string;
+    /** Message pre-filled in the chat. */
+    message: string;
+  };
 }

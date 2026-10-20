@@ -12,13 +12,22 @@ import {
 import { WhatsappIcon } from "./whatsappIcon";
 import { siteData } from "@/data";
 
+/** Builds the wa.me link for the family group. */
+function buildWhatsAppLink(number: string, message: string): string {
+  const digits = number.replace(/\D/g, "");
+  const base = `https://wa.me/${digits}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
 const WhatsAppDrawer = () => {
+  const { whatsapp, hero } = siteData;
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button size="lg" className="rounded-full">
           <WhatsappIcon className="h-4 w-4" />
-          {siteData.hero.primaryCta}
+          {hero.primaryCta}
         </Button>
       </DrawerTrigger>
 
@@ -37,7 +46,7 @@ const WhatsAppDrawer = () => {
 
         <DrawerFooter className="w-full">
           <a
-            href="https://wa.me/2348000000000"
+            href={buildWhatsAppLink(whatsapp.number, whatsapp.message)}
             target="_blank"
             rel="noreferrer"
             className="w-full"
