@@ -146,6 +146,11 @@
   body {
     scrollbar-width: none;
     -ms-overflow-style: none;
+    /* `overflow-x` on <html> alone is not enough: the reveal animations
+       push the BODY's own box past the viewport, and the body is the
+       scrolling element's child that actually overflows. Clipping both
+       keeps the page from scrolling sideways on narrow screens. */
+    overflow-x: clip;
   }
 
   body::-webkit-scrollbar {
